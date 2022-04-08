@@ -116,7 +116,7 @@ function Header() {
               <li onClick={() => handleNavigate('/login')}>로그인</li>
               <li onClick={() => handleNavigate('/sign-up')}>회원가입</li>
               <li
-                onClick={() => handleNavigate('/pro/welcome')}
+                onClick={() => handleNavigate('/pro')}
                 className={styles.masterSignup}
               >
                 고수가입
