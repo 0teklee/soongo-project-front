@@ -23,6 +23,7 @@ function Header() {
 
   const logoutBtn = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('userId');
     setIsLogin(false);
   };
 

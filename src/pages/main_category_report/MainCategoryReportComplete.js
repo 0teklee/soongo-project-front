@@ -9,13 +9,17 @@ const PORT = process.env.REACT_APP_SERVER_PORT;
 function MainCategoryReportComplete() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { quest, category, image, flag } = location.state;
+  const { quest, category, image, flag, ended_at } = location.state;
   const [gosoList, setGosoList] = useState([]);
-
+  const [endTime, setEndTime] = useState(true);
   let _result = {};
   let result = [];
   let category_num = 0;
   let bannerUrl = '/' + image;
+
+  let time = new Date();
+  time.setDate(time.getDate());
+  time = Date.parse(time) / 1000; //timestamp
 
   switch (category) {
     case '방송댄스 레슨':
@@ -60,7 +64,7 @@ function MainCategoryReportComplete() {
 
   const keys = Object.keys(quest);
   for (let i = 0; i < keys.length; i++) {
-    _result.user_id = localStorage.getItem('access_token'); //수정해야 함
+    _result.user_id = localStorage.getItem('userId');
     _result.lesson_category_id = category_num;
     if (keys[i] === 'address1' || keys[i] === 'address2') {
       _result.question_id = i + 1;
@@ -72,23 +76,44 @@ function MainCategoryReportComplete() {
     _result = {};
   }
   useEffect(() => {
-    //fetch('http://localhost:3000/data/hwseol/goso_list.json', {
     fetch(`/master/main_list/${category_num}`, {
       method: 'GET',
     })
       .then(res => res.json())
       .then(data => {
-        setGosoList(data['getMasters']);
+        setGosoList(data.getMasters);
       });
-  }, []);
+  }, [category_num]);
 
   if (flag === 1) {
+    // 1 :요청서 작성한 후 디비에 저장,
+    // 0 : 바로 그냥 받은견적으로 들어가는 경우(데이터 저장이 필요 없는 경우)
     PostRequestForm(result);
   }
 
   function handleNavigate(gosoId) {
     navigate(`../profile/users/${gosoId}`);
   }
+
+  const DeleteRequestForm = () => {
+    fetch('/receive/estimate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('access_token'),
+      },
+      body: JSON.stringify({ ended_at: ended_at }),
+    }).then(res => res.json());
+    setEndTime(false);
+  };
+
+  const settingTime = () => {
+    if (ended_at > time) setEndTime(true);
+    else setEndTime(false);
+  };
+  useEffect(() => {
+    settingTime();
+  }, []);
   return (
     <>
       <Header />
@@ -98,7 +123,11 @@ function MainCategoryReportComplete() {
           {category}
           <div className={styles.button_list}>
             <button className={styles.green_btn}>내 요청서 보기</button>
-            <button className={styles.white_btn}>요청 마감하기</button>
+            {endTime ? (
+              <button className={styles.white_btn} onClick={DeleteRequestForm}>
+                요청 마감하기
+              </button>
+            ) : null}
           </div>
         </div>
         <div className={styles.text_line}>
@@ -154,7 +183,7 @@ function PostRequestForm(result) {
     })
       .then(res => res.json())
       .then(result => {
-        alert(result.message);
+        //alert(result.message);
       });
   }, []);
 }

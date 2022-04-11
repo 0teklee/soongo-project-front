@@ -6,14 +6,15 @@
 }
 .box {
   width: 100%;
+  margin: 0px auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
 }
 .wrap {
   margin: 5px;
   border-radius: 2%;
-  width: 30%;
+  width: 32%;
   height: 200px;
   box-shadow: 1px 1px 1px 1px #eaeaea;
   margin-bottom: 30px;

@@ -37,7 +37,7 @@ function ThemaCategoryList() {
       });
   }, []);
   let lesson = [];
-  if (lessons.length !== 0) {
+  if (lessons.hasOwnProperty('categories')) {
     lesson = lessons.categories.filter(value => value.name === category);
   }
 

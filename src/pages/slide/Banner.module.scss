@@ -1,24 +1,6 @@
 $slide-count: 3;
 $slide-width: 22em; //15em;;
 
-html {
-  box-sizing: border-box;
-  font-size: 10px;
-}
-
-body {
-  font-size: 1.5rem;
-  margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  box-sizing: inherit;
-}
-
 ul {
   list-style-type: none;
   padding: 0;

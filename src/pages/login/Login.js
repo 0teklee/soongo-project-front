@@ -31,6 +31,7 @@ function Login() {
       .then(res => {
         if (res.access_token) {
           localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('userId', res.userId);
         } else {
           const error = new Error('잘못된 이메일이거나 비밀번호입니다.');
           error.statusCode = 400;

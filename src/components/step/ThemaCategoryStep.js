@@ -2,7 +2,6 @@ import styles from './ThemaCategoryStep.module.scss';
 
 const Step = ({ question, onChange, questNum }) => {
   const quest = question;
-
   if (quest === undefined) return true;
   return (
     <div className={styles.step1_container}>

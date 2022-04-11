@@ -5,18 +5,17 @@ import styles from './MainCategoryReport.module.scss';
 import ReportForm from '../../components/step/ThemaCategoryForm';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
+import WaringModal from '../../components/modal/WaringModal';
 import { AiFillStar } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
 
 function MainCategoryReport() {
   const location = useLocation();
   const { category, image, lecture_id } = location.state;
   const [question, setQuestion] = useState([]);
-  const navigate = useNavigate();
-
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState();
   useEffect(() => {
-    //fetch('http://localhost:3000/data/hwseol/lesson_question.json', {
-    fetch(`/form/questions/${lecture_id}`, {
+    fetch(`/form/questions/${lecture_id}/${localStorage.getItem('userId')}`, {
       method: 'GET',
       headers: {
         token: localStorage.getItem('access_token'),
@@ -25,13 +24,20 @@ function MainCategoryReport() {
       .then(res => res.json())
       .then(data => {
         if (data.message === 'LESSON ALEADY EXIST') {
-          alert('이미 요청하신 요청주제 입니다');
-          navigate('/');
+          setShowModal(1);
+          setMessage(
+            '이미 같은 서비스 요청이 진행중이에요. 이 요청이 마감된 후 다시 요청을 보낼 수 있어요.'
+          );
+          setQuestion(data.questions);
+        } else if (data.message === 'TOKEN_UNDEFINED') {
+          setShowModal(2);
+          setMessage('로그인 하신 후 이용부탁드립니다');
         } else if (data.message !== 'SUCCESS') {
-          alert(data.message);
-          navigate('/login');
+          setShowModal(1);
+          setMessage(data.message);
+        } else {
+          setQuestion(data.questions);
         }
-        setQuestion(data.questions);
       });
   }, [lecture_id]);
 
@@ -40,7 +46,8 @@ function MainCategoryReport() {
   if (question === undefined) return true;
   return (
     <>
-      <Header />/
+      <WaringModal show={showModal} setShow={setShowModal} message={message} />
+      <Header />
       <div className={styles.root_container}>
         <img src={imgUrl} alt="banner" className={styles.banner} />
         <div className={styles.container}>

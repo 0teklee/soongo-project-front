@@ -8,7 +8,8 @@ const StepAddr = ({ onChange, questNum }) => {
   const [secondOption, setSecondOption] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/hwseol/address.json', {
+    //fetch('http://localhost:3000/data/hwseol/address.json', {
+    fetch('/address', {
       method: 'GET',
     })
       .then(res => res.json())
@@ -16,6 +17,7 @@ const StepAddr = ({ onChange, questNum }) => {
         setAddrData(data);
       });
   }, []);
+
   useEffect(() => {
     if (questNum.address2) {
       setFirstOption(Number(questNum.address1));
@@ -28,7 +30,6 @@ const StepAddr = ({ onChange, questNum }) => {
   const onChangeOption2 = e => {
     setSecondOption(e.target.value);
   };
-
   return (
     <div className={styles.step1_container}>
       <div className={styles.small_headline}>레슨 희망지역을 선택해 주세요</div>
@@ -41,7 +42,7 @@ const StepAddr = ({ onChange, questNum }) => {
         >
           <option value={0}>시/도</option>
           {addrData.length !== 0
-            ? addrData.adress.map((addr, index) => (
+            ? addrData.address.map((addr, index) => (
                 <option value={addr.id} key={index}>
                   {addr.name}
                 </option>
@@ -56,11 +57,13 @@ const StepAddr = ({ onChange, questNum }) => {
         >
           <option value={0}>시/군/구</option>
           {addrData.length !== 0 && Number(firstOption) !== 0
-            ? addrData.adress[firstOption - 1].details.map((addr, index) => (
-                <option value={addr.id} key={index}>
-                  {addr.name}
-                </option>
-              ))
+            ? addrData.address[firstOption - 1].detailAddress.map(
+                (addr, index) => (
+                  <option value={addr.id} key={index}>
+                    {addr.name}
+                  </option>
+                )
+              )
             : null}
         </select>
       </div>

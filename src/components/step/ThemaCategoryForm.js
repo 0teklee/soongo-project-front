@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 let currentStep = 1;
 
 const ProgressBar = ({ progress }) => {
+  if (!progress) progress = 0;
   return (
     <div className={styles.progress_div}>
       <div className={styles.progressbar}>
@@ -56,13 +57,13 @@ function ReportForm({ category, image, question }) {
     } else if (questNum.address1 === '0' || questNum.address2 === '0') {
       e.preventDefault();
       setFlag(1);
-    } else {
-      setStep(1);
-      setQuestNum({});
-      currentStep = 1;
     }
   };
   const NextButton = () => {
+    let date = new Date();
+    date.setDate(date.getDate() + 7);
+    let timestamp = Math.floor(date.getTime() / 1000);
+
     if (currentStep < question.length + 1) {
       return (
         <button className={styles.btn_right} type="button" onClick={_next}>
@@ -73,7 +74,13 @@ function ReportForm({ category, image, question }) {
       return (
         <Link
           to="/complete"
-          state={{ quest: questNum, category: category, image: image, flag: 1 }}
+          state={{
+            quest: questNum,
+            category: category,
+            image: image,
+            flag: 1,
+            ended_at: timestamp,
+          }}
         >
           <button
             className={styles.btn_right}
@@ -100,20 +107,6 @@ function ReportForm({ category, image, question }) {
       );
     }
     return null;
-  };
-
-  useEffect(() => {
-    window.addEventListener('popstate', alertUser);
-    return () => {
-      window.removeEventListener('popstate', alertUser);
-    };
-  }, []);
-  const alertUser = e => {
-    e.preventDefault();
-    alert('페이지를 이동하면 작성한 데이터가 모두 사라집니다');
-    setStep(1);
-    setQuestNum({});
-    currentStep = 1;
   };
   if (question === undefined) return true;
   return (
