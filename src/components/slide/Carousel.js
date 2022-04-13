@@ -51,11 +51,25 @@ function Carousel({
       setNextBtn(activeIdx === length - 1 ? false : true);
   }, [items, activeIdx, length]);
 
+  const Title = () => {
+    if (kind === 'goso') {
+      return (
+        <h3 className={styles.slideTitle}>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인기 숨은 고수
+        </h3>
+      );
+    } else if (kind === 'service') {
+      return (
+        <h3 className={styles.slideTitle}>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XXX님을 위한 추천 서비스
+        </h3>
+      );
+    }
+    return <></>;
+  };
   return (
     <div className={styles.carouselComponent}>
-      <h3 className={styles.slideTitle}>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인기 숨은 고수
-      </h3>
+      <Title />
       <div className={styles.carouselWrap}>
         <div className={styles.carouselInner}>
           <button
