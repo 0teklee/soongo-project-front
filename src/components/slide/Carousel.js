@@ -61,7 +61,7 @@ function Carousel({
     } else if (kind === 'service') {
       return (
         <h3 className={styles.slideTitle}>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XXX님을 위한 추천 서비스
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;추천 서비스
         </h3>
       );
     }
