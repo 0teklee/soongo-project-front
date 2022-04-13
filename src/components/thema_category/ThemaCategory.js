@@ -4,57 +4,65 @@ import { Link } from 'react-router-dom';
 function ThemaCategory() {
   return (
     <div className={styles.container}>
-      <div>
-        <Link to="/lesson" state={{ category: '레슨' }}>
+      <div className={styles.first_line}>
+        <div>
+          <Link to="/lesson" state={{ category: '레슨' }}>
+            <img
+              src="/images/thump/lesson.png"
+              className={styles.lesson}
+              alt="lesson"
+            />
+          </Link>
+        </div>
+        <div>
           <img
-            src="/images/thump/lesson.png"
-            className={styles.lesson}
-            alt="lesson"
+            src="/images/thump/home.png"
+            className={styles.home}
+            alt="home"
           />
-        </Link>
-      </div>
-      <div>
-        <img src="/images/thump/home.png" className={styles.home} alt="home" />
-      </div>
-      <div>
-        <img
-          src="/images/thump/event.png"
-          className={styles.event}
-          alt="event"
-        />
-      </div>
-      <div>
-        <img
-          src="/images/thump/business.png"
-          className={styles.business}
-          alt="business"
-        />
-      </div>
-      <div>
-        <Link to="/design_develop" state={{ category: '디자인/개발' }}>
+        </div>
+        <div>
           <img
-            src="/images/thump/design.png"
-            className={styles.design}
-            alt="design"
+            src="/images/thump/event.png"
+            className={styles.event}
+            alt="event"
           />
-        </Link>
+        </div>
+        <div>
+          <img
+            src="/images/thump/business.png"
+            className={styles.business}
+            alt="business"
+          />
+        </div>
       </div>
-      <div>
-        <img
-          src="/images/thump/health.png"
-          className={styles.health}
-          alt="health"
-        />
-      </div>
-      <div>
-        <img
-          src="/images/thump/part_time.png"
-          className={styles.partTime}
-          alt="part_time"
-        />
-      </div>
-      <div>
-        <img src="/images/thump/etc.png" className={styles.etc} alt="etc" />
+      <div className={styles.second_line}>
+        <div>
+          <Link to="/design_develop" state={{ category: '디자인/개발' }}>
+            <img
+              src="/images/thump/design.png"
+              className={styles.design}
+              alt="design"
+            />
+          </Link>
+        </div>
+        <div>
+          <img
+            src="/images/thump/health.png"
+            className={styles.health}
+            alt="health"
+          />
+        </div>
+        <div>
+          <img
+            src="/images/thump/part_time.png"
+            className={styles.partTime}
+            alt="part_time"
+          />
+        </div>
+        <div>
+          <img src="/images/thump/etc.png" className={styles.etc} alt="etc" />
+        </div>
       </div>
     </div>
   );
