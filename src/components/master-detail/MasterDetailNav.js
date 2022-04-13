@@ -3,7 +3,7 @@ import styles from './MasterDetailNav.module.scss';
 
 function MasterDetailNav(props) {
   // navbar 이동 추가 구현
-  const { master, masterInfo, masterReview, masterMedia } = props;
+  const { master, masterInfo, masterReview, masterMedia, reviewCounts } = props;
   const { review } = master;
   const [active, setActive] = useState('');
 
@@ -44,7 +44,7 @@ function MasterDetailNav(props) {
         }}
         className={active === '리뷰' ? `${styles.active}` : null}
       >
-        <span>{`리뷰 ${!review ? null : master.review.number}`}</span>
+        <span>{`리뷰 ${!reviewCounts[0].name ? 0 : reviewCounts.length}`}</span>
       </li>
       <li
         onClick={e => {

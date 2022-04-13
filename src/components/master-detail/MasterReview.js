@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import styles from './MasterReview.module.scss';
+// 64~ API 수정 이후 빠진 데이터 추가하기
 
-function MasterReview(props) {
-  const { master } = props;
-  const { review } = master;
-  //   const { entireReview } = review;
-  const params = useParams();
-  useEffect(() => {
-    fetch(`http://localhost:8000/review/${params.id}`, { method: 'GET' })
-      .then(res => res.json())
-      .then(res => console.log(res));
-  }, []);
-
+function MasterReview({ reviews }) {
   const rateStar = number => {
     const star = [];
     if (5 < number) {
@@ -26,6 +16,12 @@ function MasterReview(props) {
       star.push(<FaStar color="#e1e1e1" key={star.length + i} />);
     }
     return star;
+  };
+
+  const getTotalAVGGrade = review => {
+    let totalGrade = review.map(rv => rv.grade);
+    totalGrade = totalGrade.reduce((acc, cur) => acc + cur);
+    return totalGrade / review.length;
   };
 
   const nameChange = string => {
@@ -42,30 +38,34 @@ function MasterReview(props) {
       <h2>리뷰</h2>
       <div className={styles.summary}>
         <div className={styles.summaryNumber}>
-          {!review
-            ? null
-            : parseFloat(Math.round(review.totalGrade * 100) / 100).toFixed(1)}
+          {!reviews[0].name
+            ? '0.0'
+            : parseFloat(
+                Math.round(getTotalAVGGrade(reviews) * 100) / 100
+              ).toFixed(1)}
         </div>
         <div className={styles.summaryInfo}>
-          {!review ? null : rateStar(review.totalGrade)}
-          <p>{!review ? null : review.number}개 리뷰</p>
+          {!reviews[0].name ? rateStar(0) : rateStar(getTotalAVGGrade(reviews))}
+          <p>{!reviews[0].name ? 0 : reviews.length}개 리뷰</p>
         </div>
       </div>
       <hr className={styles.breakLine} />
       <div>
-        {!review
-          ? null
-          : review.entireReview.map(rvw => {
+        {!reviews[0].name
+          ? '리뷰가 없습니다. 첫 리뷰를 남겨주세요.'
+          : reviews.map(rvw => {
               return (
-                <div key={rvw.username}>
+                <div key={rvw.userId}>
                   <div>
                     <div className={styles.reviewUser}>
                       <div className={styles.reviewNameStar}>
-                        <span>{nameChange(rvw.username)}</span>
+                        <span>{nameChange(rvw.name)}</span>
                         <span>{rateStar(rvw.grade)}</span>
                       </div>
                       <div className={styles.reviewDate}>
-                        <span>{dateFormat(rvw.created_At)}</span>
+                        <span>
+                          {!rvw.created_at ? null : dateFormat(rvw.created_at)}
+                        </span>
                       </div>
                     </div>
                   </div>

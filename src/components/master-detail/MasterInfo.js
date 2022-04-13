@@ -12,9 +12,7 @@ import {
 } from 'react-icons/fa';
 import styles from './MasterInfo.module.scss';
 
-function MasterInfo(props) {
-  const { master } = props;
-  const { review } = master;
+function MasterInfo({ master, review }) {
   return (
     <div className={styles.masterInfoContainer}>
       <div className={styles.infoBox}>
@@ -26,7 +24,7 @@ function MasterInfo(props) {
           </div>
           <div>
             <FaTrophy />
-            <span>{!review ? 0 : review.number} 회 고용됨</span>
+            <span>{!review ? 0 : review.length} 회 고용됨</span>
           </div>
           <div>
             <FaLocationArrow />
@@ -37,8 +35,8 @@ function MasterInfo(props) {
           <div>
             <FaClock />
             <span>
-              {master.start_time === null ? '00:00' : master.start_time} -{' '}
-              {master.end_time === null ? '00:00' : master.end_time}
+              {!master.start_time ? '00:00' : master.start_time.slice(11, 18)} -{' '}
+              {!master.end_time ? '00:00' : master.end_time.slice(11, 18)}
             </span>
           </div>
           <div>
@@ -49,7 +47,7 @@ function MasterInfo(props) {
       </div>
       <div
         className={
-          master.work_experience === null && master.employee_number === null
+          !master.work_experience || !master.employee_number
             ? styles.Off
             : styles.infoBox
         }
@@ -71,7 +69,7 @@ function MasterInfo(props) {
               직원 수
               {master.employee_number === null
                 ? ' 1명 '
-                : ` ${master.employee_number} `}{' '}
+                : ` ${master.employee_number} 명`}{' '}
               (본인 포함)
             </span>
           </div>

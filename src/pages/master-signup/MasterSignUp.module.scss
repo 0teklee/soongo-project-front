@@ -18,11 +18,6 @@ p {
   font-size: 1rem;
 }
 
-// 미디어 쿼리 3단 변화
-// 0 - 고정 크기
-// 1 - 1000px, flex 변화, 중앙 정렬 -> infoCaption 줄바꿈 문제 이 부분에서 해결
-// 2 - 700px 이하 , 1줄 컬럼 적용
-
 .imageHeader {
   padding: 10rem 0;
   background-image: url('../../../public/images/thump/georgia-de-lotz--UsJoNxLaNo-unsplash.jpg');
@@ -104,7 +99,7 @@ p {
 .infoCaption {
   width: 20rem;
   margin: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
   font-size: small;
   word-break: keep-all;
 }
@@ -117,14 +112,8 @@ p {
 
 .statisticWrapper,
 .infoStage {
-  @media (max-width: 870px) {
+  @media (max-width: 890px) {
     display: flex;
     flex-direction: column;
   }
 }
-
-// .infoCaption p {
-//   @media (max-width: 900px) {
-//     width: 10rem;
-//   }
-// }

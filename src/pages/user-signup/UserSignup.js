@@ -12,11 +12,7 @@ function UserSignUp() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        email: emailValue,
-        name: nameValue,
-        password: pwValue,
-      }),
+      body: JSON.stringify(signupValue),
     })
       .then(response => {
         return response.json();
@@ -32,9 +28,20 @@ function UserSignUp() {
   };
 
   const navigate = useNavigate();
-  const [nameValue, setNameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [pwValue, setPwValue] = useState('');
+  const [signupValue, setSignupValue] = useState({
+    name: '',
+    password: '',
+    email: '',
+  });
+  const { name, password, email } = signupValue;
+  const onChange = e => {
+    const { name, value } = e.target;
+    setSignupValue({
+      ...signupValue,
+      [name]: value,
+    });
+  };
+
   const [visiblePW, setPwVisible] = useState('password');
   const [agreeCheck, setAgreeCheck] = useState(false);
   const [ageCheck, setAgeCheck] = useState(false);
@@ -47,7 +54,6 @@ function UserSignUp() {
   const emailReg =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const pwReg = /(?=.*\d)(?=.*[a-zA-ZS]).{8,}/;
-
   return (
     <section className={styles.section}>
       <Header />
@@ -58,19 +64,19 @@ function UserSignUp() {
             <p className={styles.inputName}>이름</p>
             <input
               className={
-                2 <= nameValue.length || !nameValue
+                2 <= name.length || !name
                   ? styles.inputValue
                   : `${styles.inputValue} ${styles.invalid}`
               }
               type="text"
-              value={nameValue}
               placeholder="이름(실명)을 입력해주세요"
-              onChange={e => setNameValue(e.target.value)}
+              name="name"
+              onChange={onChange}
             />
             <div
               ref={invalidNameTag}
               className={
-                2 <= nameValue.length || !nameValue
+                2 <= name.length || !name
                   ? `${styles.invalidInput} ${styles.Off}`
                   : `${styles.invalidInput}`
               }
@@ -82,19 +88,19 @@ function UserSignUp() {
             <p className={styles.inputName}>이메일</p>
             <input
               className={
-                emailReg.test(emailValue) || !emailValue
+                emailReg.test(email) || !email
                   ? styles.inputValue
                   : `${styles.inputValue} ${styles.invalid}`
               }
+              name="email"
               type="text"
-              value={emailValue}
               placeholder="example@soongo.com"
-              onChange={e => setEmailValue(e.target.value)}
+              onChange={onChange}
             />
             <div
               ref={invalidIdTag}
               className={
-                emailReg.test(emailValue) || !emailValue
+                emailReg.test(email) || !email
                   ? `${styles.invalidInput} ${styles.Off}`
                   : `${styles.invalidInput}`
               }
@@ -107,14 +113,14 @@ function UserSignUp() {
             <div className={styles.pwBox}>
               <input
                 className={
-                  pwReg.test(pwValue) || !pwValue
+                  pwReg.test(password) || !password
                     ? styles.inputValue
                     : `${styles.inputValue} ${styles.invalid}`
                 }
+                name="password"
                 type={visiblePW}
-                value={pwValue}
                 placeholder="영문+숫자 조합 8자리 이상 입력해주세요"
-                onChange={e => setPwValue(e.target.value)}
+                onChange={onChange}
               />
               <button
                 className={`${styles.pwType}`}
@@ -136,7 +142,7 @@ function UserSignUp() {
             <div
               ref={invalidPwTag}
               className={
-                pwReg.test(pwValue) || !pwValue
+                pwReg.test(password) || !password
                   ? `${styles.invalidInput} ${styles.Off}`
                   : `${styles.invalidInput}`
               }
@@ -192,22 +198,22 @@ function UserSignUp() {
             onClick={e => {
               e.preventDefault();
               if (
-                emailReg.test(emailValue) &&
-                pwReg.test(pwValue) &&
-                2 <= nameValue.length &&
+                emailReg.test(email) &&
+                pwReg.test(password) &&
+                2 <= name.length &&
                 agreeCheck &&
                 ageCheck
               ) {
                 sendUserSignUp();
               }
-              if (nameValue.length < 2) {
+              if (name.length < 2) {
                 invalidNameTag.current.className = `${styles.invalidInput}`;
               }
 
-              if (!emailReg.test(emailValue)) {
+              if (!emailReg.test(email)) {
                 invalidIdTag.current.style.display = 'block';
               }
-              if (!pwReg.test(pwValue)) {
+              if (!pwReg.test(password)) {
                 invalidPwTag.current.style.display = 'block';
               }
               if (!agreeCheck) {

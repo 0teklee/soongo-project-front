@@ -1,23 +1,37 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './FormInfo.module.scss';
 
-function FormInfo({
-  masterInfo,
-  ageCheck,
-  agreeCheck,
-  setAgeCheck,
-  setAgreeCheck,
-}) {
-  //리액트
-  const [nameValue, setNameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [pwValue, setPwValue] = useState('');
-  const [phoneValue, setPhoneValue] = useState('');
+function FormInfo({ masterInfo, addressRef }) {
   const [visiblePW, setPwVisible] = useState('password');
   const [gender, setGender] = useState('');
   const [address, setAddress] = useState([{}]);
   const [selectAddress, setSelectAddress] = useState(0);
   const [selectDetailAddress, setSelectDetailAddress] = useState(0);
+  const [agreeCheck, setAgreeCheck] = useState(false);
+  const [ageCheck, setAgeCheck] = useState(false);
+  const [info, setInfo] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+    address: '',
+    detailAddress: '',
+  });
+
+  const { name, email, password, phoneNumber } = info;
+  const { lessonCatID } = masterInfo.current;
+
+  masterInfo.current = { ...info, lessonCatID: lessonCatID };
+
+  const emailRef = useRef('');
+  const nameRef = useRef('');
+  const pwRef = useRef('');
+
+  //state 객체 관리 함수
+  const onChange = e => {
+    const { name, value } = e.target;
+    setInfo({ ...info, [name]: value });
+  };
 
   const emailReg =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -25,41 +39,42 @@ function FormInfo({
   const phoneReg = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
   // 핸드폰 번호 '-' 추가하여 db에 전송
 
-  masterInfo.name = nameValue;
-  masterInfo.email = emailValue;
-  masterInfo.password = pwValue;
-  masterInfo.phoneNumber = phoneValue;
-  masterInfo.address = selectAddress.name;
-  masterInfo.detailAddress = selectDetailAddress;
-
-  // 성별 정보는 테이블에 없어서 전달 x
-  // 테이블 수정 시 추가
   useEffect(() => {
+    let isMounted = true;
     fetch('/address', { method: 'GET' })
       .then(res => res.json())
       .then(res => {
-        setAddress(res.address);
+        if (isMounted) setAddress(res.address);
       });
+    return () => (isMounted = false);
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      emailRef.current.style.display = 'none';
+      nameRef.current.style.display = 'none';
+      pwRef.current.style.display = 'none';
+    }
   }, []);
   return (
     <>
       <h3 className={styles.formTitle}>마지막으로 필수 정보를 입력해주세요.</h3>
-      <div className={styles.inputBox}>
+      <div ref={nameRef} className={styles.inputBox}>
         <p className={styles.inputName}>이름</p>
         <input
           className={
-            2 <= nameValue.length || !nameValue
+            2 <= name.length || !name
               ? styles.inputValue
               : `${styles.inputValue} ${styles.invalid}`
           }
           type="text"
-          value={nameValue}
+          name="name"
           placeholder="이름(실명)을 입력해주세요"
-          onChange={e => setNameValue(e.target.value)}
+          onChange={onChange}
         />
         <div
           className={
-            2 <= nameValue.length || !nameValue
+            2 <= name.length || !name
               ? `${styles.invalidInput} ${styles.Off}`
               : `${styles.invalidInput}`
           }
@@ -112,11 +127,13 @@ function FormInfo({
             <select
               className={styles.options}
               id="address"
+              name="address"
               onChange={e => {
                 if (e.target.value !== '0') {
                   setSelectAddress(
                     address.find(name => name.name === e.target.value)
                   );
+                  onChange(e);
                 } else {
                   setSelectDetailAddress(0);
                   setSelectAddress(0);
@@ -124,7 +141,7 @@ function FormInfo({
               }}
             >
               <option value={0}>선택</option>
-              {address[0].name === undefined
+              {!address[0].name
                 ? null
                 : address.map(address => {
                     return (
@@ -143,8 +160,10 @@ function FormInfo({
             <select
               className={styles.options}
               id="detailAddress"
+              name="detailAddress"
               onChange={e => {
                 setSelectDetailAddress(e.target.value);
+                onChange(e);
               }}
             >
               <option value={0}>선택</option>
@@ -160,28 +179,26 @@ function FormInfo({
             </select>
           </div>
         </div>
-        <p className={`${styles.invalidInput} ${styles.Off}`}>
+        <p ref={addressRef} className={`${styles.invalidInput} ${styles.Off}`}>
           주소를 선택해주세요.
         </p>
       </div>
-      <div className={styles.inputBox}>
+      <div ref={emailRef} className={styles.inputBox}>
         <p className={styles.inputName}>이메일</p>
         <input
           className={
-            emailReg.test(emailValue) || !emailValue
+            emailReg.test(email) || !email
               ? styles.inputValue
               : `${styles.inputValue} ${styles.invalid}`
           }
           type="text"
-          value={emailValue}
+          name="email"
           placeholder="example@soongo.com"
-          onChange={e => {
-            setEmailValue(e.target.value);
-          }}
+          onChange={onChange}
         />
         <div
           className={
-            emailReg.test(emailValue) || !emailValue
+            emailReg.test(email) || !email
               ? `${styles.invalidInput} ${styles.Off}`
               : `${styles.invalidInput}`
           }
@@ -189,19 +206,19 @@ function FormInfo({
           이메일 주소를 입력해주세요.
         </div>
       </div>
-      <div className={styles.inputBox}>
+      <div ref={pwRef} className={styles.inputBox}>
         <p className={styles.inputName}>비밀번호</p>
         <div className={styles.pwBox}>
           <input
             className={
-              pwReg.test(pwValue) || !pwValue
+              pwReg.test(password) || !password
                 ? styles.inputValue
                 : `${styles.inputValue} ${styles.invalid}`
             }
             type={visiblePW}
-            value={pwValue}
             placeholder="영문+숫자 조합 8자리 이상 입력해주세요"
-            onChange={e => setPwValue(e.target.value)}
+            name="password"
+            onChange={onChange}
           />
           <button
             className={`${styles.pwType}`}
@@ -222,7 +239,7 @@ function FormInfo({
         </div>
         <div
           className={
-            pwReg.test(pwValue) || !pwValue
+            pwReg.test(password) || !password
               ? `${styles.invalidInput} ${styles.Off}`
               : `${styles.invalidInput}`
           }
@@ -230,25 +247,22 @@ function FormInfo({
           비밀번호를 입력해주세요.
         </div>
       </div>
-
       <div className={styles.inputBox}>
         <p className={styles.inputName}>핸드폰 번호</p>
         <input
           className={
-            phoneReg.test(phoneValue) || !phoneValue
+            phoneReg.test(phoneNumber) || !phoneNumber
               ? styles.inputValue
               : `${styles.inputValue} ${styles.invalid}`
           }
           type="text"
-          value={phoneValue}
           placeholder="핸드폰 번호를 입력해주세요 (- 없이)"
-          onChange={e => {
-            setPhoneValue(e.target.value);
-          }}
+          name="phoneNumber"
+          onChange={onChange}
         />
         <div
           className={
-            phoneReg.test(phoneValue) || !phoneValue
+            phoneReg.test(phoneNumber) || !phoneNumber
               ? `${styles.invalidInput} ${styles.Off}`
               : `${styles.invalidInput}`
           }

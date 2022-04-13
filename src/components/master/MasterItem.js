@@ -11,7 +11,6 @@ const PORT = process.env.REACT_APP_SERVER_PORT;
 const MasterItem = props => {
   const { master } = props;
   const navigate = useNavigate();
-
   function handleNavigate() {
     navigate(`/profile/users/${master.id}`);
   }
