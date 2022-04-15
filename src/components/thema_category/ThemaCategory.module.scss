@@ -5,6 +5,16 @@
   justify-content: space-between;
   margin-top: 3%;
 }
+.first_line {
+  width: 50%;
+  justify-content: space-around;
+  display: flex;
+}
+.second_line {
+  width: 50%;
+  justify-content: space-around;
+  display: flex;
+}
 .lesson {
   width: 100px;
 }
@@ -84,10 +94,50 @@
   .container {
     width: 100%;
     margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
+    display: block;
+    //justify-content: space-between;
     margin-top: 3%;
     flex-wrap: wrap;
+  }
+  .first_line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .second_line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .lesson {
+    width: 100px;
+  }
+  .business {
+    width: 100px;
+    opacity: 0.2;
+  }
+  .etc {
+    width: 100px;
+    opacity: 0.2;
+  }
+  .event {
+    width: 100px;
+    opacity: 0.2;
+  }
+  .health {
+    width: 100px;
+    opacity: 0.2;
+  }
+  .home {
+    width: 100px;
+    opacity: 0.2;
+  }
+  .partTime {
+    width: 100px;
+    opacity: 0.2;
+  }
+  .design {
+    width: 100px;
   }
 }
 
