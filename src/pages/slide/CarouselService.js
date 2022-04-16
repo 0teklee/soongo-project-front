@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CarouselService.module.scss';
 import Carousel from '../../components/slide/Carousel';
+import { FRONT_PORT } from '../../config';
 
 function CarouselService() {
   const [_items, _setItems] = useState([]);
