@@ -151,13 +151,138 @@ $slide-width: 10em;
 
 .slideTitle {
   font-weight: bold;
+  margin-left: 20px;
 }
 
 @media (max-width: 760px) {
+  $slide-count: 6;
+  $slide-width: 10em;
+
+  .carouselComponent {
+    width: 100%;
+    margin: 0px auto;
+    margin-top: 2%;
+  }
+  .carouselWrap {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .carouselInner {
+    height: 17rem;
+    position: relative;
+    width: calc(#{$slide-width * 6});
+  }
+
+  .carouselContainer {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .carouselSlideList {
+    height: 100%;
+    left: 50%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    width: calc(#{($slide-count + 1) * $slide-width * 2});
+  }
+
+  .carouselSlideItem {
+    display: inline-block;
+    height: $slide-width;
+    margin: 0;
+    padding: 2rem;
+    position: absolute;
+    transition: all 0.3s;
+    width: $slide-width;
+  }
+
+  .carouselSlideItemImgLink {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+      width: 100%;
+    }
+  }
+
+  .carouselSlideItemBody {
+    bottom: -2.5rem;
+    //height: 20%;
+    top: 15%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    h4 {
+      font-size: 1em;
+      font-weight: bold;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 0.9em;
+      //line-height: 1.3;
+      margin: 0.7rem 0 0;
+    }
+  }
+
+  .carouselBtn {
+    align-items: center;
+    background: 0;
+    border: 0;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 43%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    box-shadow: 1px 1px 1px 1px gray;
+  }
+
+  .prev {
+    left: -1rem;
+    z-index: 10;
+  }
+
+  .next {
+    right: -1rem;
+    z-index: 10;
+  }
+  .hideBtn {
+    pointer-events: all;
+    opacity: 1;
+  }
+  .slideTitle {
+    font-weight: bold;
+    margin-left: 5px;
+  }
 }
 
-@media (min-width: 761px) and (max-width: 990px) {
+@media (min-width: 761px) and (max-width: 890px) {
 }
 
-@media (min-width: 991px) {
+@media (min-width: 891px) {
 }

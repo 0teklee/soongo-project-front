@@ -23,6 +23,9 @@ function Carousel({
   const [nextBtn, setNextBtn] = useState(true);
 
   const prevClick = (jump = jumped) => {
+    if (matchMedia('screen and (max-width: 890px)').matches) {
+      jump = 1;
+    }
     if (!isTicking) {
       setIsTicking(true);
       setItems(prev => {
@@ -31,6 +34,9 @@ function Carousel({
     }
   };
   const nextClick = (jump = jumped) => {
+    if (matchMedia('screen and (max-width: 890px)').matches) {
+      jump = 1;
+    }
     if (!isTicking) {
       setIsTicking(true);
       setItems(prev => {
@@ -53,17 +59,9 @@ function Carousel({
 
   const Title = () => {
     if (kind === 'goso') {
-      return (
-        <h3 className={styles.slideTitle}>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인기 숨은 고수
-        </h3>
-      );
+      return <h3 className={styles.slideTitle}>&nbsp;인기 숨은 고수</h3>;
     } else if (kind === 'service') {
-      return (
-        <h3 className={styles.slideTitle}>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;추천 서비스
-        </h3>
-      );
+      return <h3 className={styles.slideTitle}>&nbsp;추천 서비스</h3>;
     }
     return <></>;
   };
