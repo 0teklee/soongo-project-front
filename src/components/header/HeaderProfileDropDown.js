@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './HeaderProfileDropDown.module.scss';
+import { SERVER_PORT } from '../../config';
 const token = localStorage.getItem('access_token');
 
 function HeaderProfileDropDownFetch(props) {
@@ -7,7 +8,7 @@ function HeaderProfileDropDownFetch(props) {
 
   useEffect(() => {
     if (token) {
-      fetch('/users', {
+      fetch(SERVER_PORT + '/users', {
         headers: {
           token,
         },

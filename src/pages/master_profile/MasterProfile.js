@@ -11,6 +11,7 @@ import MasterProfileAddress from '../../components/master/MasterProfileAddress';
 import MasterProfileActiveTime from '../../components/master/MasterProfileActiveTime';
 import MasterProfileWorkEx from '../../components/master/MasterProfileWorkEx';
 import MasterProfileEmployeeNum from '../../components/master/MasterProfileEmployeeNum';
+import { SERVER_PORT } from '../../config';
 
 import styles from './MasterProfile.module.scss';
 const token = localStorage.getItem('access_token');
@@ -19,7 +20,7 @@ const MasterProfileDelay = props => {
   const [myInfo, setMyInfo] = useState(null);
 
   useEffect(() => {
-    fetch('/master/profile', {
+    fetch(SERVER_PORT + '/master/profile', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

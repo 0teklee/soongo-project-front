@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Login.module.scss';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
+import { SERVER_PORT } from '../../config';
 
 function Login() {
   let [id, setId] = useState('');
@@ -15,7 +16,7 @@ function Login() {
   };
   const dataFetch = () => {
     // try {
-    fetch('/users/login', {
+    fetch(SERVER_PORT + '/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

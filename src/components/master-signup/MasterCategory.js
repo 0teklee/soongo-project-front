@@ -6,7 +6,6 @@ function MasterCategory() {
   const nextMasterPage = url => {
     navigate(url);
   };
-  //const params = useParams();
 
   return (
     <div className={styles.container}>

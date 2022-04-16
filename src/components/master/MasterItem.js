@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { BsStarFill } from 'react-icons/bs';
 import { FaRegCommentDots } from 'react-icons/fa';
+import { FRONT_PORT } from '../../config';
 
 import styles from './MasterItem.module.scss';
-
-const PORT = process.env.REACT_APP_SERVER_PORT;
 
 const MasterItem = props => {
   const { master } = props;
   const navigate = useNavigate();
-
   function handleNavigate() {
     navigate(`/profile/users/${master.id}`);
   }
@@ -32,8 +30,8 @@ const MasterItem = props => {
   }
 
   let masterImage = master.master_image
-    ? PORT + master.master_image
-    : PORT + '/images/profile/profileNotFound.svg';
+    ? FRONT_PORT + master.master_image
+    : FRONT_PORT + '/images/profile/profileNotFound.svg';
 
   return (
     <div onClick={handleNavigate} className={styles.masterItem}>

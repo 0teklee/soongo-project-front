@@ -5,6 +5,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { GoLocation } from 'react-icons/go';
 
 import FilteringModalSearch from './FilteringModalSearch';
+import { SERVER_PORT } from '../../config';
 
 const FilteringModal = props => {
   const { isModalVisible, setIsModalVisible, setUseFilter, path } = props;
@@ -14,7 +15,7 @@ const FilteringModal = props => {
 
   useEffect(() => {
     const urlName = isAddressType ? '/address' : '/category';
-    fetch(urlName)
+    fetch(SERVER_PORT + urlName)
       .then(response => {
         return response.json();
       })

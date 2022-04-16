@@ -4,6 +4,7 @@ import MasterListContents from '../../components/master/MasterListContents';
 import styles from './MasterList.module.scss';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
+import { SERVER_PORT } from '../../config';
 
 const MasterList = () => {
   const [masters, setMasters] = useState([]);
@@ -15,7 +16,7 @@ const MasterList = () => {
 
   useEffect(() => {
     fetch(
-      `/master/list?addressId=${
+      `${SERVER_PORT}/master/list?addressId=${
         useAddress ? useAddress.details.id : null
       }&lessonId=${useCategory ? useCategory.lessons.id : null}&take=${useTake}`
     )

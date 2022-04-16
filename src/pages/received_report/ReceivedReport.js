@@ -4,7 +4,7 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-const PORT = process.env.REACT_APP_SERVER_PORT;
+import { SERVER_PORT, FRONT_PORT } from '../../config';
 
 function ReceviedBox({ _data, index }) {
   let img_datas = _data.goso_images.slice(0, 6);
@@ -31,8 +31,8 @@ function ReceviedBox({ _data, index }) {
           <img
             src={
               imgData.image
-                ? PORT + imgData.image
-                : PORT + '/images/profile/profileNotFound.svg'
+                ? FRONT_PORT + imgData.image
+                : FRONT_PORT + '/images/profile/profileNotFound.svg'
             }
             alt="goso_img"
             className={styles.img}
@@ -64,7 +64,7 @@ function ReceivedReport() {
     navigate('/login');
   }
   useEffect(() => {
-    fetch(`/receive/estimate/${localStorage.getItem('userId')}`, {
+    fetch(`${SERVER_PORT}/receive/estimate/${localStorage.getItem('userId')}`, {
       method: 'GET',
       headers: {
         token: localStorage.getItem('access_token'),

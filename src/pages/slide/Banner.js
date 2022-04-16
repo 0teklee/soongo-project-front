@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Banner.module.scss';
+import { FRONT_PORT } from '../../config';
 
 const slideWidth = 62;
 
@@ -44,7 +45,7 @@ function Banner() {
   const [_items, _setItems] = useState([]);
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/data/hwseol/banner.json', {
+    fetch(FRONT_PORT + '/data/hwseol/banner.json', {
       method: 'GET',
     })
       .then(res => res.json())

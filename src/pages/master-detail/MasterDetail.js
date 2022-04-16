@@ -10,17 +10,19 @@ import MasterImage from '../../components/master-detail/MasterImage';
 import MasterReview from '../../components/master-detail/MasterReview';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
+import { SERVER_PORT } from '../../config';
 
 function MasterDetail() {
   const params = useParams();
   const [master, setMaster] = useState({});
+  const [reviews, setReviews] = useState([{ name: '' }]);
   const masterInfo = useRef('');
   const masterMedia = useRef('');
   const masterReview = useRef('');
 
   //get master profile fetch
   useEffect(() => {
-    fetch(`http://localhost:8000/master/users/${params.id}`, {
+    fetch(`${SERVER_PORT}/master/users/${params.id}`, {
       method: 'GET',
     })
       .then(res => res.json())
@@ -28,27 +30,51 @@ function MasterDetail() {
         setMaster(data);
       });
   }, []);
+
+  //get reviews
+  useEffect(() => {
+    fetch(`${SERVER_PORT}/review/${params.id}`, { method: 'GET' })
+      .then(res => res.json())
+      .then(data => {
+        if (data.reviews.length === 0) {
+          data.reviews = [{ name: '' }];
+        }
+        setReviews(data.reviews);
+      });
+  }, []);
+
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles.detailContainer}>
         <div className={styles.masterProfile}>
-          <MasterProfile master={master} />
+          <MasterProfile master={master} review={reviews} />
         </div>
         <div className={styles.pageNav}>
           <MasterDetailNav
             master={master}
             masterInfo={masterInfo}
             masterReview={masterReview}
+            reviewCounts={reviews}
             masterMedia={masterMedia}
           />
         </div>
         <div ref={masterInfo} className={styles.masterIntro}>
           <h2>한줄소개</h2>
-          <div>{master.intro}</div>
+          <div>
+            {!master.info
+              ? `아직 ${
+                  !master.name ? '' : master.name
+                } 고수님의 소개가 없습니다.`
+              : master.intro}
+          </div>
         </div>
         <div className={styles.masterInfoContainer}>
-          <MasterInfo master={master} masterInfo={masterInfo} />
+          <MasterInfo
+            master={master}
+            masterInfo={masterInfo}
+            review={reviews}
+          />
         </div>
         <div className={styles.lessonCategory}>
           <div>
@@ -62,7 +88,7 @@ function MasterDetail() {
         </div>
         <div ref={masterReview} className={styles.masterReview}>
           <div>
-            <MasterReview master={master} />
+            <MasterReview master={master} reviews={reviews} />
           </div>
         </div>
       </div>

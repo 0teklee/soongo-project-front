@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import styles from './CarouselService.module.scss';
 
+import { FRONT_PORT } from '../../config';
+
 const slideWidth = 15;
 
 const sleep = (ms = 0) => {
@@ -58,7 +60,7 @@ function CarouselService() {
   const [_items, _setItems] = useState([]);
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/data/hwseol/main_carousel.json', {
+    fetch(FRONT_PORT + '/data/hwseol/main_carousel.json', {
       method: 'GET',
     })
       .then(res => res.json())

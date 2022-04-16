@@ -7,6 +7,7 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import WaringModal from '../../components/modal/WaringModal';
 import { AiFillStar } from 'react-icons/ai';
+import { SERVER_PORT } from '../../config';
 
 function MainCategoryReport() {
   const location = useLocation();
@@ -15,12 +16,17 @@ function MainCategoryReport() {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState();
   useEffect(() => {
-    fetch(`/form/questions/${lecture_id}/${localStorage.getItem('userId')}`, {
-      method: 'GET',
-      headers: {
-        token: localStorage.getItem('access_token'),
-      },
-    })
+    fetch(
+      `${SERVER_PORT}/form/questions/${lecture_id}/${localStorage.getItem(
+        'userId'
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          token: localStorage.getItem('access_token'),
+        },
+      }
+    )
       .then(res => res.json())
       .then(data => {
         if (data.message === 'LESSON ALEADY EXIST') {

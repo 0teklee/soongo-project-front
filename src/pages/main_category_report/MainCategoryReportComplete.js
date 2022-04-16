@@ -4,7 +4,7 @@ import styles from './MainCategoryReport.module.scss';
 import { AiFillStar } from 'react-icons/ai';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
-const PORT = process.env.REACT_APP_SERVER_PORT;
+import { SERVER_PORT, FRONT_PORT } from '../../config';
 
 function MainCategoryReportComplete() {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ function MainCategoryReportComplete() {
     _result = {};
   }
   useEffect(() => {
-    fetch(`/master/main_list/${category_num}`, {
+    fetch(`${SERVER_PORT}/master/main_list/${category_num}`, {
       method: 'GET',
     })
       .then(res => res.json())
@@ -96,7 +96,7 @@ function MainCategoryReportComplete() {
   }
 
   const DeleteRequestForm = () => {
-    fetch('/receive/estimate', {
+    fetch(SERVER_PORT + '/receive/estimate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -136,8 +136,8 @@ function MainCategoryReportComplete() {
         </div>
         {gosoList.map((goso, index) => {
           let masterImage = goso.image
-            ? PORT + goso.image
-            : PORT + '/images/profile/profileNotFound.svg';
+            ? FRONT_PORT + goso.image
+            : FRONT_PORT + '/images/profile/profileNotFound.svg';
           return (
             <div
               className={styles.goso_wrap}
@@ -173,7 +173,7 @@ function MainCategoryReportComplete() {
 
 function PostRequestForm(result) {
   useEffect(() => {
-    fetch('/form/questions/complete', {
+    fetch(SERVER_PORT + '/form/questions/complete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

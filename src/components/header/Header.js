@@ -6,6 +6,8 @@ import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import HeaderProfileDropDown from './HeaderProfileDropDown';
 
+import { FRONT_PORT } from '../../config';
+
 function Header() {
   const navigate = useNavigate();
   const [profileClick, setProfileClick] = useState(false);
@@ -49,7 +51,7 @@ function Header() {
           <span className={styles.headerLogo}>
             <img
               onClick={() => handleNavigate('/')}
-              src="http://localhost:3000/images/logo/Soongo-logo.png"
+              src={FRONT_PORT + '/images/logo/Soongo-logo.png'}
               width="100px"
               alt="soongo-logo"
             />
@@ -101,7 +103,7 @@ function Header() {
               <li>
                 <div className={styles.flexRow}>
                   <img
-                    src="http://localhost:3000/images/profile/profileNotFound.svg"
+                    src={FRONT_PORT + '/images/profile/profileNotFound.svg'}
                     className={styles.profileImg}
                     alt="profile_image"
                     ref={profile}

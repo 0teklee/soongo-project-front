@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './MasterSignUp.module.scss';
 import MasterCategory from '../../components/master-signup/MasterCategory';
 import Header from '../../components/header/Header';
+import Footer from '../../components/footer/Footer';
+import { SERVER_PORT } from '../../config';
 
 function MasterSignUp() {
   // infoStage에서 글자 줄바꿈으로 인해 생기는 이미지 높낮이 차이 해결할 것
@@ -14,9 +16,13 @@ function MasterSignUp() {
   ]);
   // 고수 테이블에서 프로필 사진, 카테고리 가져오기. 고수 리뷰는 고수들이 직접 작성
   useEffect(() => {
-    fetch('누적 요청서의 총 갯수, 등록된 고수의 모든 수, 평균 리뷰별점 API', {
-      method: 'GET',
-    })
+    fetch(
+      SERVER_PORT +
+        '누적 요청서의 총 갯수, 등록된 고수의 모든 수, 평균 리뷰별점 API',
+      {
+        method: 'GET',
+      }
+    )
       .then(res => res.json())
       .then(data => setStatistic(data));
   }, []);
@@ -101,8 +107,8 @@ function MasterSignUp() {
           </li>
         </ul>
       </div>
+      <Footer />
     </section>
   );
 }
-
 export default MasterSignUp;

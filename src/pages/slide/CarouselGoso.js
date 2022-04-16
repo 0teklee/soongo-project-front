@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CarouselGoso.module.scss';
 import { AiFillStar } from 'react-icons/ai';
+import { FRONT_PORT } from '../../config';
 
 const slideWidth = 10;
 
@@ -62,7 +63,7 @@ function CarouselGoso() {
   const [_items, _setItems] = useState([]);
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/data/hwseol/goso_carousel.json', {
+    fetch(FRONT_PORT + '/data/hwseol/goso_carousel.json', {
       method: 'GET',
     })
       .then(res => res.json())

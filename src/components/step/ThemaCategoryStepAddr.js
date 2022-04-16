@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { SERVER_PORT } from '../../config';
+
 import styles from './ThemaCategoryStep.module.scss';
 
 const StepAddr = ({ onChange, questNum }) => {
@@ -9,7 +11,7 @@ const StepAddr = ({ onChange, questNum }) => {
 
   useEffect(() => {
     //fetch('http://localhost:3000/data/hwseol/address.json', {
-    fetch('/address', {
+    fetch(SERVER_PORT + '/address', {
       method: 'GET',
     })
       .then(res => res.json())

@@ -1,29 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './MasterSignUpFooter.module.scss';
+import { SERVER_PORT } from '../../config';
 
 function MasterSignUpFooter({
-  setFormRender,
-  renderLength,
+  setFormPage,
   pageNumber,
   allData,
   checkLesson,
+  addressRef,
 }) {
   const navigate = useNavigate();
-
-  //80 ~ 81 refactoring
 
   // 입력 정보 유효성 검사
   const emailReg =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const pwReg = /(?=.*\d)(?=.*[a-zA-ZS]).{8,}/;
   const phoneReg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-
   // 모든 데이터를 취합하여 보내는 footer
-  const sendMasterInfo = data => {
-    fetch('http://localhost:8000/master/signup', {
+  const sendMasterInfo = (data, router) => {
+    fetch(`${SERVER_PORT}/master/${router}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+
+      headers: {
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('access_token'),
+      },
       body: JSON.stringify(data),
     })
       .then(response => {
@@ -42,9 +44,6 @@ function MasterSignUpFooter({
         alert(`Error : ${err.message}`);
       });
   };
-  // 에러 핸들링 추가 필요
-
-  const { email, password, phoneNumber, name } = allData;
   return (
     <div className={styles.FooterContainer}>
       <div className={styles.btnWrapper}>
@@ -54,7 +53,7 @@ function MasterSignUpFooter({
             if (pageNumber === 0) {
               navigate('/pro');
             }
-            setFormRender(prev => (prev === 0 ? prev : prev - 1));
+            setFormPage(prev => (prev === 0 ? prev : prev - 1));
           }}
         >
           이전
@@ -66,26 +65,46 @@ function MasterSignUpFooter({
               return;
             }
 
-            setFormRender(prev => (prev === renderLength ? prev : prev + 1));
+            setFormPage(prev => (prev === 1 ? prev : prev + 1));
             if (e.target.innerText === '가입하기') {
               if (
-                pwReg.test(password) &&
-                emailReg.test(email) &&
-                phoneReg.test(phoneNumber) &&
-                2 <= name.length &&
-                allData.address != '0' &&
-                allData.detailAddress != '0'
+                pwReg.test(allData.current.password) &&
+                emailReg.test(allData.current.email) &&
+                phoneReg.test(allData.current.phoneNumber) &&
+                2 <= allData.current.name.length &&
+                !!allData.current.address &&
+                !!allData.current.detailAddress
               ) {
                 // fetch 보내기
-                sendMasterInfo(allData);
+                sendMasterInfo(allData.current, 'signupdirect');
+              } else if (
+                !!localStorage.getItem('access_token') &&
+                phoneReg.test(allData.current.phoneNumber) &&
+                !!allData.current.address &&
+                !!allData.current.detailAddress
+              ) {
+                sendMasterInfo(
+                  {
+                    ...allData.current,
+                    address: allData.current.address,
+                    detailAddress: allData.current.detailAddress,
+                    phoneNumber: allData.current.phoneNumber,
+                  },
+                  'signup'
+                );
               } else {
+                if (
+                  !(allData.current.address || allData.current.detailAddress)
+                ) {
+                  addressRef.current.style.display = 'block';
+                }
                 alert('모든 정보를 올바르게 입력해주세요');
               }
             }
             return;
           }}
         >
-          {pageNumber === renderLength ? '가입하기' : '다음'}
+          {pageNumber === 1 ? '가입하기' : '다음'}
         </button>
       </div>
     </div>

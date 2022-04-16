@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BsXLg, BsList, BsArrowReturnRight } from 'react-icons/bs';
 import { IoIosArrowDown } from 'react-icons/io';
 import { AiFillCheckSquare } from 'react-icons/ai';
+import { SERVER_PORT } from '../../config';
 
 import styles from './MasterCategoryModal.module.scss';
 
@@ -12,7 +13,7 @@ const MasterCategoryModal = props => {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    fetch('/category')
+    fetch(SERVER_PORT + '/category')
       .then(response => {
         return response.json();
       })
