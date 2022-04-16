@@ -3,134 +3,91 @@
   margin: 0px auto;
   display: flex;
   justify-content: space-between;
-  margin-top: 3%;
+  margin-top: 2%;
+  margin-bottom: 1%;
+}
+.first_line {
+  width: 50%;
+  justify-content: space-around;
+  display: flex;
+}
+.second_line {
+  width: 50%;
+  justify-content: space-around;
+  display: flex;
+}
+.box1 {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.1em;
 }
 .lesson {
-  width: 100px;
+  width: 80px;
+  height: 80px;
 }
-.lesson:hover {
+.box1:hover {
   background-color: #fafafa;
   transform: translateY(-0.1in);
   transition: all 0.4s;
 }
 .business {
-  width: 100px;
+  width: 80px;
+  height: 80px;
+}
+.box2 {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.1em;
   opacity: 0.2;
 }
-/*
-.business:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
-}*/
 .etc {
-  width: 100px;
-  opacity: 0.2;
+  width: 80px;
+  height: 80px;
 }
-/*
-.etc:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
-}*/
 .event {
-  width: 100px;
-  opacity: 0.2;
+  width: 80px;
+  height: 80px;
 }
-/*
-.event:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
-}*/
 .health {
-  width: 100px;
-  opacity: 0.2;
-} /*
-.health:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
-}*/
+  width: 80px;
+  height: 80px;
+}
 .home {
-  width: 100px;
-  opacity: 0.2;
-} /*
-.home:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
-}*/
+  width: 80px;
+  height: 80px;
+}
 .partTime {
-  width: 100px;
-  opacity: 0.2;
+  width: 80px;
+  height: 80px;
 }
-/*
-.partTime:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
-}*/
 .design {
-  width: 100px;
-}
-.design:hover {
-  background-color: #fafafa;
-  transform: translateY(-0.1in);
-  transition: all 0.4s;
+  width: 80px;
+  height: 80px;
 }
 
 @media (max-width: 760px) {
   .container {
     width: 100%;
     margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
+    display: block;
+    //justify-content: space-between;
     margin-top: 3%;
     flex-wrap: wrap;
+    margin-bottom: 10%;
+  }
+  .first_line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .second_line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
 @media (min-width: 761px) and (max-width: 990px) {
-  .container {
-    width: 100%;
-    margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 3%;
-    flex-wrap: wrap;
-  }
-
-  .lesson {
-    width: 80px;
-  }
-  .business {
-    width: 80px;
-    opacity: 0.2;
-  }
-  .etc {
-    width: 80px;
-    opacity: 0.2;
-  }
-  .event {
-    width: 80px;
-    opacity: 0.2;
-  }
-  .health {
-    width: 80px;
-    opacity: 0.2;
-  }
-  .home {
-    width: 80px;
-    opacity: 0.2;
-  }
-  .partTime {
-    width: 80px;
-    opacity: 0.2;
-  }
-  .design {
-    width: 80px;
-  }
 }
 
 @media (min-width: 991px) {
