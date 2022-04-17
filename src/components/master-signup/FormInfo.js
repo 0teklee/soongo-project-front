@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './FormInfo.module.scss';
+import { SERVER_PORT } from '../../config';
 
 function FormInfo({ masterInfo, addressRef }) {
   const [visiblePW, setPwVisible] = useState('password');
@@ -41,7 +42,7 @@ function FormInfo({ masterInfo, addressRef }) {
 
   useEffect(() => {
     let isMounted = true;
-    fetch('/address', { method: 'GET' })
+    fetch(SERVER_PORT + '/address', { method: 'GET' })
       .then(res => res.json())
       .then(res => {
         if (isMounted) setAddress(res.address);

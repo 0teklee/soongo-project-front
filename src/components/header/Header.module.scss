@@ -23,15 +23,16 @@
 }
 
 .headerLogo {
+  width: 100px;
   cursor: pointer;
 }
 
 .headerSearchBox {
+  display: flex;
   position: relative;
 }
 
 .headerSearch {
-  display: none;
   width: 300px;
   margin: auto;
   margin-left: 20px;
@@ -49,12 +50,12 @@
 }
 
 .searchIcon {
-  display: none;
   position: absolute;
-  top: 12px;
-  left: 34px;
+  top: 10px;
+  left: 30px;
+  display: block;
   color: lightgray;
-  font-size: large;
+  font-size: x-large;
 }
 
 .headerBtn {
@@ -89,7 +90,7 @@
 }
 
 .menuBtn {
-  position: absolute;
+  display: none;
 }
 
 .profileImg {
@@ -100,7 +101,7 @@
 }
 
 .searchBtn {
-  position: absolute;
+  display: none;
 }
 
 .grayColor {
@@ -146,51 +147,45 @@
   opacity: 50%;
 }
 
-@media screen and (max-width: 761px) {
+@media (max-width: 690px) {
+  .header {
+    width: 100vw;
+  }
+
+  .headerLogo {
+    width: 80px;
+  }
+
+  .headerTitle {
+    margin: 0 auto;
+  }
+
+  .menuBtn {
+    display: block;
+    position: fixed;
+    top: 26px;
+    left: 20px;
+    font-size: large;
+    cursor: pointer;
+  }
+
+  .headerSearchBox {
+    display: none;
+  }
+
+  .headerBtn {
+    display: none;
+  }
+}
+
+@media (min-width: 691px) and (max-width: 999px) {
   .header {
     width: 100vw;
     margin: 0;
     justify-content: space-around;
   }
 
-  .headerBox {
-    margin: 0;
-    padding: 10px;
-  }
-
-  .headerTitle {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .headerSearch {
-    display: none;
-    position: relative;
-    margin: 0 auto;
-    width: 90vw;
-    padding: 14px;
-    border: 0;
-    outline: 2px solid #03c7ae;
-  }
-
-  .searchIcon {
-    display: none;
-    position: absolute;
-    top: 12px;
-    left: 10px;
-  }
-
-  .menuBtn {
-    display: none;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: large;
-    cursor: pointer;
-  }
-
-  .searchBtn {
+  .headerSearchBox {
     display: none;
   }
 }

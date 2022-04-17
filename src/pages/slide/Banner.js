@@ -6,7 +6,7 @@ function Banner() {
   const [_items, _setItems] = useState([]);
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/data/hwseol/banner.json', {
+    fetch(FRONT_PORT + '/data/hwseol/banner.json', {
       method: 'GET',
     })
       .then(res => res.json())

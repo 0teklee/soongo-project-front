@@ -6,7 +6,7 @@ function CarouselService() {
   const [_items, _setItems] = useState([]);
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/data/hwseol/main_carousel.json', {
+    fetch(FRONT_PORT + '/data/hwseol/main_carousel.json', {
       method: 'GET',
     })
       .then(res => res.json())

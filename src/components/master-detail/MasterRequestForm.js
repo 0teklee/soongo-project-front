@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import styles from './MasterRequestForm.moduel.scss';
+import { SERVER_PORT } from '../../config';
 
 function FormPageZero({ lesson_categories, master }) {
   const [lessons, setLessons] = useState([]);
@@ -32,7 +33,7 @@ function FormPageNext({ lesson_categories, pageNumber }) {
 
   useEffect(() => {
     // fetch('', { method: 'GET' })
-    fetch('', { method: 'GET' })
+    fetch(SERVER_PORT + '', { method: 'GET' })
       .then(res => res.json())
       .then(data => setFormQuestion(data));
   }, []);

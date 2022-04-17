@@ -1,11 +1,11 @@
 import styles from './MasterProfileHeader.module.scss';
-const PORT = process.env.REACT_APP_SERVER_PORT;
+import { FRONT_PORT } from '../../config';
 
 const MasterProfileHeader = props => {
   const { myInfo } = props;
   const masterImage = myInfo.master_image
-    ? PORT + myInfo.master_image
-    : PORT + '/images/profile/profileNotFound.svg';
+    ? FRONT_PORT + myInfo.master_image
+    : FRONT_PORT + '/images/profile/profileNotFound.svg';
   return (
     <div className={styles.masterProfileHeaderWrapper}>
       <picture className={styles.profileImageWrapper}>

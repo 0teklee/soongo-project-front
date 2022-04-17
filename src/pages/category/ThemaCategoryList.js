@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import ThemaLessons from '../../components/thema_lesson/ThemaLesson';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
+import { SERVER_PORT } from '../../config';
 
 function ThemaCategoryList() {
   const location = useLocation();
@@ -30,7 +31,7 @@ function ThemaCategoryList() {
   const [lessons, setLessons] = useState([]);
   useEffect(() => {
     //fetch('data/hwseol/thema_category_list.json')
-    fetch('/category')
+    fetch(SERVER_PORT + '/category')
       .then(res => res.json())
       .then(data => {
         setLessons(data);

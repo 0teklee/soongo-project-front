@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import styles from './MasterSignUpNext.module.scss';
 import MasterSignUpFooter from '../../components/master-signup/MasterSignUpFooter';
 import FormInfo from '../../components/master-signup/FormInfo';
+import { SERVER_PORT } from '../../config';
+
 let questionKey = 0;
 let formComponentKey = 0;
 
@@ -83,7 +85,7 @@ function MasterSignUpNext() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch(`http://localhost:8000/category/${params.id}`, {
+    fetch(`${SERVER_PORT}/category/${params.id}`, {
       method: 'GET',
     })
       .then(res => {

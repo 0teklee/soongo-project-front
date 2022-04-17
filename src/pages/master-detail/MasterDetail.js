@@ -10,6 +10,7 @@ import MasterImage from '../../components/master-detail/MasterImage';
 import MasterReview from '../../components/master-detail/MasterReview';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
+import { SERVER_PORT } from '../../config';
 
 function MasterDetail() {
   const params = useParams();
@@ -18,10 +19,10 @@ function MasterDetail() {
   const masterInfo = useRef('');
   const masterMedia = useRef('');
   const masterReview = useRef('');
-  const PORT = process.env.REACT_APP_SERVER_PORT;
+
   //get master profile fetch
   useEffect(() => {
-    fetch(`${PORT}/master/users/${params.id}`, {
+    fetch(`${SERVER_PORT}/master/users/${params.id}`, {
       method: 'GET',
     })
       .then(res => res.json())
@@ -32,7 +33,7 @@ function MasterDetail() {
 
   //get reviews
   useEffect(() => {
-    fetch(`${PORT}/review/${params.id}`, { method: 'GET' })
+    fetch(`${SERVER_PORT}/review/${params.id}`, { method: 'GET' })
       .then(res => res.json())
       .then(data => {
         if (data.reviews.length === 0) {
