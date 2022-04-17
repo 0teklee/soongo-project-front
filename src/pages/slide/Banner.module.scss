@@ -144,7 +144,7 @@ $slide-width: 22em; //15em;;
 
 @media (max-width: 760px) {
   $slide-count: 3;
-  $slide-width: 16em; //16em; //15em;
+  $slide-width: 16.1em; //16em; //15em;
 
   .carouselComponent {
     width: 100%;
@@ -163,7 +163,7 @@ $slide-width: 22em; //15em;;
   }
 
   .carouselInner {
-    height: 14rem;
+    height: 15.5rem;
     position: relative;
     width: calc(#{$slide-width * 4});
   }
@@ -183,7 +183,8 @@ $slide-width: 22em; //15em;;
     padding: 0;
     position: absolute;
     transform: translateX(-50%);
-    width: calc(#{($slide-count + 1) * $slide-width * 2});
+    width: calc(#{($slide-count + 1) * $slide-width * 2 + 2});
+    border: 1px solid red;
   }
 
   .carouselSlideItem {
@@ -202,10 +203,10 @@ $slide-width: 22em; //15em;;
     overflow: auto; //hidden;
     position: relative;
     width: 100%;
-    left: 30px;
+    left: 53px;
 
     img {
-      height: 14em;
+      height: 15.5em;
       object-fit: contain;
       transition: all 0.5s ease;
       width: 100vw;
