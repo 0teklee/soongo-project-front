@@ -184,7 +184,6 @@ $slide-width: 22em; //15em;;
     position: absolute;
     transform: translateX(-50%);
     width: calc(#{($slide-count + 1) * $slide-width * 2 + 2});
-    border: 1px solid red;
   }
 
   .carouselSlideItem {
