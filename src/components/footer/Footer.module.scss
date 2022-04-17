@@ -94,6 +94,7 @@
 
 .icon {
   margin: 5px;
+  color: black;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -113,9 +114,10 @@
 
 .disabled {
   opacity: 50%;
+  cursor: default;
 }
 
-@media screen and (max-width: 761px) {
+@media (max-width: 890px) {
   .footer {
     width: 100vw;
     margin: 0 auto;
@@ -164,5 +166,20 @@
 
   .icons {
     margin: 10px;
+  }
+}
+
+@media (min-width: 891px) and (max-width: 999px) {
+  .footer {
+    width: 100vw;
+    margin: 0 auto;
+  }
+
+  .infoBox {
+    width: 891px;
+  }
+
+  .explanation {
+    width: 891px;
   }
 }
