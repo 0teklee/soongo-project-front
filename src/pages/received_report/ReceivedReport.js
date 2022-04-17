@@ -86,7 +86,11 @@ function ReceivedReport() {
       <div className={styles.container}>
         <div className={styles.wrap}>
           <h1 className={styles.title}>받은 견적</h1>
-          {data.map((_data, index) => ReceviedBox({ _data, index }))}
+          {data.length === 0 ? (
+            <div className={styles.blank}>받은 견적이 없어요!</div>
+          ) : (
+            data.map((_data, index) => ReceviedBox({ _data, index }))
+          )}
         </div>
       </div>
       <Footer />

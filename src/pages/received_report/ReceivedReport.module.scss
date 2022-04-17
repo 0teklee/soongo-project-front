@@ -8,7 +8,7 @@
   margin: 0px auto;
   margin-top: 90px;
   width: 1000px;
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 }
 .wrap {
   display: flex;
@@ -92,13 +92,21 @@
   border-left: 10px solid #03c7ae;
   margin-right: 5px;
 }
+.blank {
+  width: 100%;
+  color: gray;
+  text-align: center;
+  min-height: 6em;
+  line-height: 10em;
+  font-size: 1.5em;
+}
 
 @media (max-width: 760px) {
   .container {
     margin: 0px auto;
     margin-top: 90px;
     width: 100%;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
   }
   .wrap {
     display: flex;
@@ -123,7 +131,7 @@
     margin: 0px auto;
     margin-top: 90px;
     width: 100%;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
   }
   .wrap {
     display: flex;
@@ -141,6 +149,8 @@
     font-weight: 500;
     font-size: 2em;
     text-align: center;
+    display: flex;
+    align-items: center;
   }
 }
 

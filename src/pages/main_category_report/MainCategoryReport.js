@@ -40,7 +40,7 @@ function MainCategoryReport() {
         }
       });
   }, [lecture_id]);
-
+  console.log('aa :', question);
   let imgUrl = '/' + image;
 
   if (question === undefined) return true;
