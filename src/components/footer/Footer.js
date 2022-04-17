@@ -1,6 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { React, useState } from 'react';
 import styles from './Footer.module.scss';
+import FooterModal from './FooterModal';
+import { useNavigate } from 'react-router-dom';
 import { GrApple, GrGithub, GrInstagram } from 'react-icons/gr';
 import { IoLogoGooglePlaystore } from 'react-icons/io5';
 import { VscGithub } from 'react-icons/vsc';
@@ -8,9 +9,14 @@ import { FaSlack, FaFacebook } from 'react-icons/fa';
 
 function Footer() {
   const navigate = useNavigate();
+  const [isModalClicked, setIsModalClicked] = useState(false);
 
   function handleNavigate(path) {
     navigate(path);
+  }
+
+  function handleModalClick() {
+    !isModalClicked ? setIsModalClicked(true) : setIsModalClicked(false);
   }
 
   return (
@@ -34,15 +40,21 @@ function Footer() {
           <ul>
             <li
               className={`${styles.footerTitle} ${styles.clickable}`}
-              onClick={() => handleNavigate('')}
+              onClick={() => handleNavigate('/')}
             >
               숭고소개
             </li>
-            <li className={styles.clickable} onClick={() => handleNavigate('')}>
+            <li
+              className={styles.clickable}
+              onClick={() => handleNavigate('/')}
+            >
               팀 소개
             </li>
-            <li className={styles.clickable} onClick={() => handleNavigate('')}>
+            <li className={styles.clickable} onClick={handleModalClick}>
               팀원 안내
+              {isModalClicked && (
+                <FooterModal handleModalClick={handleModalClick} />
+              )}
             </li>
           </ul>
           <div className={styles.hiddenLine} />
@@ -71,7 +83,7 @@ function Footer() {
             <li className={styles.disabled}>고수가이드</li>
             <li
               className={styles.clickable}
-              onClick={() => handleNavigate('/pro/welcome')}
+              onClick={() => handleNavigate('/pro')}
             >
               고수가입
             </li>
@@ -111,14 +123,14 @@ function Footer() {
             target="_blank"
             rel="noreferrer"
           >
-            <GrGithub className={styles.icon} />
+            <VscGithub className={styles.icon} />
           </a>
           <a
             href="https://github.com/wecode-bootcamp-korea/justcode-4-1st-omm-back"
             target="_blank"
             rel="noreferrer"
           >
-            <VscGithub className={styles.icon} />
+            <GrGithub className={styles.icon} />
           </a>
           <FaSlack className={`${styles.icon} ${styles.disabled}`} />
           <FaFacebook className={`${styles.icon} ${styles.disabled}`} />

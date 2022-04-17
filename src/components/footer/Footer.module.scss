@@ -94,6 +94,7 @@
 
 .icon {
   margin: 5px;
+  color: black;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -113,6 +114,7 @@
 
 .disabled {
   opacity: 50%;
+  cursor: default;
 }
 
 @media (max-width: 890px) {
